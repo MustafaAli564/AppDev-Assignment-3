@@ -73,7 +73,7 @@ class Itemcard extends StatelessWidget {
                     color: Colors.black.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(type, style: const TextStyle(fontSize: 12)),
+                  child: Text(type, style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
                 ),
                 Row(
                   mainAxisSize:

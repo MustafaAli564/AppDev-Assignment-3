@@ -111,9 +111,7 @@ class NoteHomePage extends StatelessWidget {
                           builder:
                               (_) => AlertDialog(
                                 title: const Text('Delete this note?'),
-                                content: const Text(
-                                  'Are you sure?',
-                                ),
+                                content: const Text('Are you sure?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
@@ -158,18 +156,20 @@ class NoteHomePage extends StatelessWidget {
   Widget _buildFilterDropdown(BuildContext context) {
     return BlocBuilder<NoteBloc, NoteState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
+        return Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 1.2),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
           child: DropdownButton<String>(
             value: state.filterType,
             hint: const Text('Filter'),
-            icon: const Icon(Icons.filter_list),
+            icon: const Icon(Icons.arrow_drop_down),
             underline: Container(),
             items: [
-              const DropdownMenuItem<String>(
-                value: null,
-                child: Text('All Notes'),
-              ),
+              const DropdownMenuItem<String>(value: null, child: Text('All')),
               ...['Personal', 'Work', 'Study'].map((type) {
                 return DropdownMenuItem<String>(value: type, child: Text(type));
               }).toList(),
@@ -255,15 +255,24 @@ class _AddNotePageState extends State<AddNotePage> {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: contentController,
-              decoration: InputDecoration(
-                labelText: 'Content',
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 75,
+            SizedBox(
+              height: 200,
+              child: TextField(
+                controller: contentController,
+                decoration: InputDecoration(
+                  labelText: 'Content',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                  alignLabelWithHint: true,
                 ),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                expands: true,
+                scrollPhysics: ClampingScrollPhysics(), 
+                scrollPadding: EdgeInsets.all(20),
               ),
             ),
             const SizedBox(height: 16),
@@ -292,10 +301,7 @@ class _AddNotePageState extends State<AddNotePage> {
                   value: selectedType,
                   isExpanded: true,
                   icon: const Icon(Icons.arrow_drop_down),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
@@ -320,9 +326,7 @@ class _AddNotePageState extends State<AddNotePage> {
               onPressed: saveNote,
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.black,
-                backgroundColor: _getCategoryColor(
-                  selectedType,
-                ),
+                backgroundColor: _getCategoryColor(selectedType),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
